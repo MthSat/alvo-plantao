@@ -122,14 +122,14 @@
 		if(pontos == 0){
 			
 			dificuldade="Easy";
-			tempo=1050;
+			tempo=1000;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);
 			
 		}else if(pontos == 10){
 		
 			dificuldade="Medium";
-			tempo=tempo-50;
+			tempo=tempo-90;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);
 			fundoAtual = "DarkSeaGreen";
@@ -140,7 +140,7 @@
 		}else if(pontos == 20){
 		
 			dificuldade="Hard";
-			tempo=tempo-50;
+			tempo=tempo-90;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);
 			fundoAtual = "LightSalmon";
@@ -150,7 +150,7 @@
 		}else if(pontos == 30){
 		
 			dificuldade="Insane";
-			tempo=tempo-50;
+			tempo=tempo-90;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);			
 			fundoAtual = "Gold";
@@ -160,7 +160,7 @@
 		}else if(pontos > 30){
 		
 			dificuldade="Insane "+i;
-			tempo=tempo-50;
+			tempo=tempo-90;
 			i++;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);			
