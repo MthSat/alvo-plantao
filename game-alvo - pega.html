@@ -62,7 +62,7 @@
 	
 	function sorteiaPosicao(maxi){
 	
-		return Math.floor(Math.random()*maxi);;
+		return Math.floor(Math.random()*maxi);
 		
 	}
 	
@@ -141,7 +141,7 @@ function disparo(evento){
 		if(acertos == 0){
 			
 			dificuldade="Easy";
-			tempo=1500;
+			tempo=1000;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);
 			fundoAtual = "LightSteelBlue";
@@ -152,7 +152,7 @@ function disparo(evento){
 		}else if(acertos == 10){
 		
 			dificuldade="Medium";
-			tempo=tempo-50;
+			tempo=tempo-90;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);
 			fundoAtual = "DarkSeaGreen";
@@ -164,7 +164,7 @@ function disparo(evento){
 		}else if(acertos == 20){
 		
 			dificuldade="Hard";
-			tempo=tempo-50;
+			tempo=tempo-90;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);
 			fundoAtual = "LightSalmon";
@@ -175,7 +175,7 @@ function disparo(evento){
 		}else if(acertos == 30){
 		
 			dificuldade="Insane";
-			tempo=tempo-50;
+			tempo=tempo-90;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);			
 			fundoAtual = "Gold";
@@ -186,7 +186,7 @@ function disparo(evento){
 		}else if(acertos > 30){
 		
 			dificuldade="Insane "+i;
-			tempo=tempo-50;
+			tempo=tempo-90;
 			i++;
 			clearInterval(freq);
 			freq = setInterval (atualizaTela,tempo);	
