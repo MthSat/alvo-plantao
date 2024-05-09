@@ -1,0 +1,176 @@
+<meta charset = "UTF-8">
+<canvas width="1000" height="800"></canvas>
+<script>
+	
+	var tela = document.querySelector("canvas");
+	var pincel = tela.getContext("2d");
+	
+	pincel.fillStyle ="LightSteelBlue";
+	pincel.fillRect(0,0,1000,800);
+	pincel.font="small-caps bold 50px Arial";
+	pincel.fillStyle ="black";
+	pincel.fillText("PRESS SPACE TO PLAY",195,570);		
+	pincel.font="small-caps 30px Arial";
+	pincel.fillText("OR REPLAY",615,600);
+	pincel.fillText("Click on the cross before it changes to score",150,325);
+	pincel.font="small-caps 60px Arial";
+	pincel.fillStyle = "MidnightBlue";
+	pincel.fillText("PEGA",30,80);
+	pincel.font="small-caps bold 60px Arial";
+	pincel.fillText("PLANTÃO",200,80);
+	pincel.font="small-caps 30px Arial";
+
+	var lado = 100;
+	var xale;
+	var xale2;
+	var yale;
+	var pontos;
+	var tempo;
+	var freq; 
+	var i;
+	var telaX = 1000;
+	var telaY = telaX-200;
+	var fundoAtual = "LightSteelBlue";
+	var bordaAtual = "SteelBlue";
+	var acertoAtual = "Crimson";
+	var stage = 1;
+	
+	
+	function desenhaQuadrado(x,y,cor,tamx,tamy){
+		
+		pincel.fillStyle = cor;
+		pincel.fillRect(x,y,tamx,tamy);
+		
+	}
+	
+	function limpaTela(){
+	
+		pincel.clearRect(0,0,telaX,telaY)
+	
+	}
+	
+	function desenhaAlvo(x,y){	
+		
+		desenhaQuadrado(x,y,bordaAtual,lado,lado);
+		desenhaQuadrado(x+15,y+15,fundoAtual,lado-30,lado-30);
+		desenhaQuadrado(x+42.5,y+25,bordaAtual,lado/5-5,lado/2);
+		desenhaQuadrado(x+25,y+42.5,bordaAtual,lado/2,lado/5-5);		
+		
+	}
+	
+	function sorteiaPosicao(maxi){
+	
+		return Math.floor(Math.random()*maxi);;
+		
+	}
+	
+	function atualizaTela(){
+	
+		xale = sorteiaPosicao(900);
+		yale = sorteiaPosicao(700);
+		limpaTela();
+		pincel.fillStyle = fundoAtual;
+		pincel.fillRect(0,0,telaX,telaY);
+		desenhaAlvo(xale,yale);
+		pincel.fillStyle ="black";
+		pincel.fillText("Score: "+pontos,20,70);
+		pincel.fillText(dificuldade,20,40);
+		pincel.fillText("Level "+stage,870,780);
+		
+	}
+	
+	
+	
+	function disparo(evento){	
+
+		if((evento.pageX - tela.offsetLeft > xale+42.5 && evento.pageX - tela.offsetLeft < xale+57.5 && evento.pageY - tela.offsetTop > yale+25 && evento.pageY - tela.offsetTop < yale+75)||(evento.pageX - tela.offsetLeft > xale+25 && evento.pageX - tela.offsetLeft < xale+75 && evento.pageY - tela.offsetTop > yale+42.5 && evento.pageY - tela.offsetTop < yale+57.5)){
+			
+			xale2=xale;
+			xale = 2000;			
+			desenhaQuadrado(xale2+42.5,yale+25,acertoAtual,lado/5-5,lado/2);
+			desenhaQuadrado(xale2+25,yale+42.5,acertoAtual,lado/2,lado/5-5);		
+			pontos++;			
+			
+			if (pontos % 10 == 0){
+				
+				mudaDificuldade(pontos);
+				stage++;
+			}
+			
+		}
+		
+	}
+	
+	function leDoTeclado(evento){
+		
+		if(evento.keyCode==32){
+		
+			pincel.font="small-caps bold 30px Arial";
+			pincel.fillStyle = "darkgreen";
+			pincel.fillText("START",20,780);
+			pincel.font="small-caps 30px Arial";
+			pontos=0;
+			i=1;
+			mudaDificuldade(pontos);					
+			stage=1;
+		}
+		
+	}	
+	
+	function mudaDificuldade(pontos){
+		
+		if(pontos == 0){
+			
+			dificuldade="Easy";
+			tempo=1050;
+			clearInterval(freq);
+			freq = setInterval (atualizaTela,tempo);
+			
+		}else if(pontos == 10){
+		
+			dificuldade="Medium";
+			tempo=tempo-50;
+			clearInterval(freq);
+			freq = setInterval (atualizaTela,tempo);
+			fundoAtual = "DarkSeaGreen";
+			bordaAtual = "ForestGreen";
+			acertoAtual = "Lime";
+			
+			
+		}else if(pontos == 20){
+		
+			dificuldade="Hard";
+			tempo=tempo-50;
+			clearInterval(freq);
+			freq = setInterval (atualizaTela,tempo);
+			fundoAtual = "LightSalmon";
+			bordaAtual = "DarkRed";
+			acertoAtual = "OrangeRed";
+			
+		}else if(pontos == 30){
+		
+			dificuldade="Insane";
+			tempo=tempo-50;
+			clearInterval(freq);
+			freq = setInterval (atualizaTela,tempo);			
+			fundoAtual = "Gold";
+			bordaAtual = "Black";
+			acertoAtual = "Aqua";
+			
+		}else if(pontos > 30){
+		
+			dificuldade="Insane "+i;
+			tempo=tempo-50;
+			i++;
+			clearInterval(freq);
+			freq = setInterval (atualizaTela,tempo);			
+		
+		}
+	}
+	
+	tela.onclick=disparo;	
+	document.onkeydown = leDoTeclado;
+	
+	
+	
+</script>
